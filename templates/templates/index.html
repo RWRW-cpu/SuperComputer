@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <ul class="list">
+        <li>
+
+        </li>
+
+    </ul>
+    
+    <button type="button" id="look">点击</button>
+    <script>   
+        $('#look').click(function(){
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET','http://10.161.6.16/data/ups',true);
+            xhr.send();
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4 && xhr.status == 200){
+                    var opj=JSON.parse(xhr.responseText);
+                    console.log(opj.data);
+                    for(var i=0;i<opj.data.length;i++){
+                        var lis = document.createElement('li');
+                        lis.innerHTML = opj.data[i].name;
+                        document.getElementById('.list').appendChild(lis);
+                    }
+
+                }
+            }
+        }) 
+    </script>
+
+
+    
+</body>
+</html>

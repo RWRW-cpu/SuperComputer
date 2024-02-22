@@ -10,11 +10,8 @@ import (
 	"syscall"
 	"time"
 	"web/dao/mysql"
-	"web/dao/redis"
 	"web/router"
 	"web/settings"
-
-	"web/logger"
 
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
@@ -26,26 +23,19 @@ func main() {
 		fmt.Printf("init settings failed,err:%v\n", err)
 		return
 	}
-	//初始化
+	/* //初始化
 	if err := logger.Init(); err != nil {
 		fmt.Printf("init logger failed,err:%v\n", err)
 		return
 	}
 	defer zap.L().Sync()
-	zap.L().Debug("logger init success...")
+	zap.L().Debug("logger init success...") */
 
-	//mysql
+	//mysql初始化
 	if err := mysql.Init(); err != nil {
 		fmt.Printf("init mysql failed,err:%v\n", err)
 		return
 	}
-	//不用退出
-	//redis
-	if err := redis.Init(); err != nil {
-		fmt.Printf("init redis failed,err:%v\n", err)
-		return
-	}
-	defer redis.Close()
 
 	//路由
 	r := router.Setup()
